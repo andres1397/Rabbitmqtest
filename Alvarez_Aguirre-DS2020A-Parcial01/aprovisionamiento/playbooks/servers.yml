@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+  - name: update cache
+    apt:
+      update_cache: yes
+  - name: install git
+    apt:
+      name: git
+      state: present
+  - name: create a folder
+    shell:
+      mkdir parcial01
+  - name: get repo
+    git:
+      repo: 'https://github.com/LewisAlvarez/Clases-RabbitMQ-Parcial'
+      clone: yes
+      dest: '/home/vagrant/parcial01'
+  - name: transfer script
+    script: ~/Desktop/Alvarez_Aguirre-Parcial01/instalaciones.sh
